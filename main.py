@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter.filedialog import askopenfilename, asksaveasfilename, asksaveasfile
 from PIL import Image, ImageTk
 from tkinter import filedialog
+import image_array
 
 WINDOW_MINSIZE_X = 512
 WINDOW_MINSIZE_Y = 512
@@ -24,14 +25,18 @@ filename = None
 label = Label(main, text="Color By Numbers", font=('Arial', 36), bg='#162123', fg='#e2e9ec', padx=5, pady=5)
 label.pack()
 
-
 # load image setup
+image_size = (1, 1)
+image_colors = {}
+
+
 def get_image():
     global filename
     filename = askopenfilename()
     if filename:
-        global tk_image
-        tk_image = ImageTk.PhotoImage(Image.open(filename))
+        image_size, image_colors = image_array.do_image(filename)
+        print(image_size)
+        print(image_colors)
     else:
         print("ERROR: could not open file")
 
@@ -101,12 +106,26 @@ colors = {
     5: "#00ffff",
     6: "#ffff00"
 }
-haddies_colors = {}
+new_colors = [
+    (255, 255, 255),
+    (0, 0, 0),
+    (255, 0, 0),
+    (0, 255, 0),
+    (0, 0, 255),
+    (255, 0, 255),
+    (255, 255, 0),
+    (0, 255, 255),
+    (169, 169, 169),
+    (255, 165, 0),
+    (255, 224, 189),
+    (255, 192, 203),
+    (0, 128, 128),
+]
 
 
 # get the pixel color from the list
 def get_pixel_color(row, col):
-    # color = haddies_colors[col + row * height]
+    color = new_colors[col + row * height]
     return random.choice(list(colors.items()))
 
 

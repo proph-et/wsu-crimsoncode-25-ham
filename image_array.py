@@ -3,6 +3,7 @@ import numpy as np
 import os
 import time
 
+
 def rgb_to_hex(rgb_val):
     r = rgb_val[0]
     g = rgb_val[1]
@@ -32,11 +33,10 @@ def convert_image(img, approved_colors):
     return Image.fromarray(img_array)
 
 
-def image(input):
-
+def do_image(input):
     img = Image.open(input).convert('RGB')
 
-# ------------------ resize image -------------------------
+    # ------------------ resize image -------------------------
 
     width, height = img.size
     small_width = int(width * 0.04)
@@ -53,9 +53,18 @@ def image(input):
     # -------------------- create color palette ------------------
 
     new_colors = [
-        (255, 255, 255), (0, 0, 0), (255, 0, 0), (0, 255, 0),
-        (0, 0, 255), (255, 0, 255), (255, 255, 0), (0, 255, 255),
-        (169, 169, 169), (255, 165, 0), (255, 224, 189), (255, 192, 203),
+        (255, 255, 255),
+        (0, 0, 0),
+        (255, 0, 0),
+        (0, 255, 0),
+        (0, 0, 255),
+        (255, 0, 255),
+        (255, 255, 0),
+        (0, 255, 255),
+        (169, 169, 169),
+        (255, 165, 0),
+        (255, 224, 189),
+        (255, 192, 203),
         (0, 128, 128),
     ]
 
@@ -77,6 +86,3 @@ def image(input):
 
     new_image_size = (width, height)
     return (new_image_size, hex_pixels)
-
-
-
