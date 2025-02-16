@@ -188,9 +188,16 @@ zoom_level = 100
 
 
 def zoom(event):
-    amount = 0.5 if event.delta < 0 else 1.7
     global zoom_level
-    zoom_level += 10 if event.delta < 0 else -10
+    if zoom_level > 130:
+        zoom_level = 130
+        amount = 0
+    elif zoom_level < 70:
+        zoom_level = 70
+        amount = 0
+    else:
+        amount = 0.5 if event.delta < 0 else 1.7
+        zoom_level += 10 if event.delta < 0 else -10
     global size
     size = int(zoom_level / standard_size)
     print(zoom_level)
@@ -206,7 +213,7 @@ def zoom(event):
     y = main.winfo_pointery()
     abs_coord_x = main.winfo_pointerx() - main.winfo_vrootx()
     abs_coord_y = main.winfo_pointery() - main.winfo_vrooty()
-    color_grid.scale(ALL, abs_coord_x, abs, amount, amount)
+    color_grid.scale(ALL, abs_coord_x, abs_coord_y, amount, amount)
 
 
 color_grid.bind('<MouseWheel>', zoom)
