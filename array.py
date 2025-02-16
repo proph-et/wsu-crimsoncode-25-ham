@@ -32,65 +32,51 @@ def convert_image(img, approved_colors):
     return Image.fromarray(img_array)
 
 
-# ------------------ import image -------------------------
-start_time = time.time()
-img = Image.open("input2.jpg").convert('RGB')
-end_time = time.time()
-execution_time = end_time - start_time
-print("Execution time for import image:", execution_time, "seconds")
+def image(input):
+
+    img = Image.open(input).convert('RGB')
 
 # ------------------ resize image -------------------------
-start_time = time.time()
-width, height = img.size
-small_width = int(width * 0.04)
-small_height = int(height * 0.04)
-imgSmall = img.resize((small_width, small_height))
-# result = imgSmall.resize(img.size, Image.NEAREST)
-result = imgSmall
-end_time = time.time()
-execution_time = end_time - start_time
-print("Execution time for resize image:", execution_time, "seconds")
 
-# -------------------- contrast image ----------------------
-start_time = time.time()
-enhancer = ImageEnhance.Contrast(result)
-contrast_image = enhancer.enhance(2.0)
-end_time = time.time()
-execution_time = end_time - start_time
-print("Execution time for contrast image:", execution_time, "seconds")
+    width, height = img.size
+    small_width = int(width * 0.04)
+    small_height = int(height * 0.04)
+    imgSmall = img.resize((small_width, small_height))
+    # result = imgSmall.resize(img.size, Image.NEAREST)
+    result = imgSmall
 
-# -------------------- create color palette ------------------
-start_time = time.time()
-new_colors = [
-    (255, 255, 255), (0, 0, 0), (255, 0, 0), (0, 255, 0),
-    (0, 0, 255), (255, 0, 255), (255, 255, 0), (0, 255, 255),
-    (169, 169, 169), (255, 165, 0), (255, 224, 189), (255, 192, 203),
-    (0, 128, 128),
-]
-end_time = time.time()
-execution_time = end_time - start_time
-print("Execution time for create color palette:", execution_time, "seconds")
+    # -------------------- contrast image ----------------------
 
-# --------------------------- convert image to color palette -----------------
-start_time = time.time()
-new_image = convert_image(contrast_image, new_colors)
-end_time = time.time()
-execution_time = end_time - start_time
-print("Execution time for convert image:", execution_time, "seconds")
+    enhancer = ImageEnhance.Contrast(result)
+    contrast_image = enhancer.enhance(2.0)
 
-new_image.save('result2.jpg')
+    # -------------------- create color palette ------------------
 
-# os.startfile('result2.jpg')
+    new_colors = [
+        (255, 255, 255), (0, 0, 0), (255, 0, 0), (0, 255, 0),
+        (0, 0, 255), (255, 0, 255), (255, 255, 0), (0, 255, 255),
+        (169, 169, 169), (255, 165, 0), (255, 224, 189), (255, 192, 203),
+        (0, 128, 128),
+    ]
 
-width, height = new_image.size
+    # --------------------------- convert image to color palette -----------------
 
-hex_pixels = []
-pixels = list(new_image.getdata())
-for tup in pixels:
-    hex_pixels.append(rgb_to_hex(tup))
-# print(hex_pixels)
+    new_image = convert_image(contrast_image, new_colors)
 
-new_image_size = (width, height)
-print(new_image_size)
+    new_image.save('result2.jpg')
+
+    # os.startfile('result2.jpg')
+
+    width, height = new_image.size
+
+    hex_pixels = []
+    pixels = list(new_image.getdata())
+    for tup in pixels:
+        hex_pixels.append(rgb_to_hex(tup))
+    # print(hex_pixels)
+
+    new_image_size = (width, height)
+    return (new_image_size, hex_pixels)
+
 
 
