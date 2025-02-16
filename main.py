@@ -4,6 +4,7 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename, asksaveasfile
 from PIL import Image, ImageTk
 from tkinter import filedialog
 import image_array
+from image_array import rgb_to_hex
 
 WINDOW_MINSIZE_X = 512
 WINDOW_MINSIZE_Y = 512
@@ -99,12 +100,6 @@ def on_rect_click(event, rect, color, text):
 
 # replace these colors with haddies colors
 colors = {
-    1: "#0000ff",
-    2: "#00ff00",
-    3: "#ff0000",
-    4: "#ff00ff",
-    5: "#00ffff",
-    6: "#ffff00"
 }
 new_colors = [
     (255, 255, 255),
@@ -121,12 +116,17 @@ new_colors = [
     (255, 192, 203),
     (0, 128, 128),
 ]
+i = 0
+for c in new_colors:
+    i += 1
+    colors[i] = rgb_to_hex(c)
+print(colors)
 
 
 # get the pixel color from the list
 def get_pixel_color(row, col):
-    color = new_colors[col + row * height]
-    return random.choice(list(colors.items()))
+    return colors.get(image_colors[col + row * image_size[0]])
+    # return random.choice(list(colors.items()))
 
 
 # color grid setup
