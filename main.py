@@ -62,7 +62,7 @@ def save_image():
 button_grid = Frame(padx=2, pady=2, bg='#090d0e')
 button_grid.pack()
 
-load_image_button = Button(button_grid, text="Upload an image", width=16, height=1)
+load_image_button = Button(button_grid, text="Upload an Image", width=16, height=1)
 load_image_button.config(
     bd=0, bg="#a90448", fg="#e2e9ec",
     activebackground="grey", activeforeground="white",
@@ -79,7 +79,7 @@ save_image_button.config(
     relief=FLAT, cursor="plus",
     command=save_image
 )
-save_image_button.grid(row=0, column=1, padx=2, pady=2)
+# save_image_button.grid(row=0, column=1, padx=2, pady=2)
 
 selected_color = None
 
